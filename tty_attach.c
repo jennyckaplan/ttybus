@@ -24,7 +24,7 @@
 #define POLL_W_TIMEOUT 50
 
 static char *tty_bus_path;
-static char *devname;
+static char *dev_name;
 static char *init_string;
 
 
@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
   if (daemonize)
     daemon(0, 0);
 
-  devname = strdup(argv[optind]);
+  dev_name = strdup(argv[optind]);
 
   if (!tty_bus_path)
     tty_bus_path = strdup("/tmp/ttybus");
@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
   fprintf(stderr, "Connecting to bus: %s\n", tty_bus_path);
   fd = tty_connect(tty_bus_path);
 
-  realdev = open(devname, O_RDWR);
+  realdev = open(dev_name, O_RDWR);
   if (realdev < 0) {
     perror("opening device");
     exit(3);
